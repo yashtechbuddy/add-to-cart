@@ -5,7 +5,7 @@ if( empty(session_id()) && !headers_sent()){
 }
 
 // Connect to the database
-$conn = mysqli_connect('localhost', 'rndtd_trading_user', 'Qwaszx@123', 'rndtd_trading_db');
+$conn = mysqli_connect('localhost', 'root', '', 'rndtd_trading_db');
 if (!$conn) {
     die('Failed to connect to MySQL: ' . mysqli_connect_error());
 }

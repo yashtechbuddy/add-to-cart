@@ -1,160 +1,151 @@
-.product_category{
-    padding: 8px 8px 14px;
+.product_category {
+  padding: 8px 8px 14px;
 }
 
 @media (max-width: 767.98px) {
-    /* .categories-card {
+  /* .categories-card {
     margin-top: 1rem !important;
   } */
 }
 
-
 .categories-card {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 .category-container {
-    border-top: 2px #078586 solid;
+  border-top: 2px #078586 solid;
 }
 
-.product-cat{
-    text-decoration: none !important;
-    color:#078586 !important;
-    position: relative !important;
-    display: inline-block !important;
-    min-width: 100px !important;
-    min-height: 40px !important;
-    font-size: 12px !important;
-    line-height: 45px !important;
-    padding: 0px 20px !important;
-    border-radius: 5px !important;
-    border: 1px solid var(--border-color-one) !important;
-    background: var(--primary-color-one) !important;
-    font-family: var(--creote-family-one) !important;
-    color: #fff !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
+.product-cat {
+  text-decoration: none !important;
+  color: #078586 !important;
+  position: relative !important;
+  display: inline-block !important;
+  min-width: 100px !important;
+  min-height: 40px !important;
+  font-size: 12px !important;
+  line-height: 45px !important;
+  padding: 0px 20px !important;
+  border-radius: 5px !important;
+  color: #078586 !important;
+  border: #078586 1px solid !important;
+  background: transparent !important;
+  font-family: var(--creote-family-one) !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
 }
 
-.product-cat-remove{
-    text-decoration: none !important;
-    position: relative !important;
-    display: inline-block !important;
-    min-width: 100px !important;
-    min-height: 40px !important;
-    font-size: 12px !important;
-    line-height: 45px !important;
-    padding: 0px 20px !important;
-    border-radius: 5px !important;
-    border: 1px solid var(--border-color-one) !important;
-    background: #d61313 !important;
-    font-family: var(--creote-family-one) !important;
-    color: #fff !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
+.product-cat-remove {
+  text-decoration: none !important;
+  position: relative !important;
+  display: inline-block !important;
+  min-width: 100px !important;
+  min-height: 40px !important;
+  font-size: 12px !important;
+  line-height: 45px !important;
+  padding: 0px 20px !important;
+  border-radius: 5px !important;
+  border: #d61313 1px solid !important;
+  background: transparent !important;
+  font-family: var(--creote-family-one) !important;
+  color: #d61313 !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
 }
 
-.product-cat-remove:hover{
-    color: #d61313 !important;
-    border: #d61313 1px solid !important;
-    background-color: transparent !important;
+.product-cat-remove:hover {
+  color: #d61313 !important;
+  border: #d61313 1px solid !important;
+  background-color: #eff6ff !important;
 }
 .product-cat:hover {
-    color: #078586 !important;
-    border: #078586 1px solid !important;
-    background-color: transparent !important;
-    position: relative !important;
-    display: inline-block !important;
-    min-width: 100px !important;
-    min-height: 40px !important;
-    font-size: 12px !important;
-    line-height: 45px !important;
-    padding: 0px 20px !important;
-    border-radius: 5px !important;
+  color: #078586 !important;
+  border: #078586 1px solid !important;
+  background-color: #eff6ff !important;
+  position: relative !important;
+  display: inline-block !important;
+  min-width: 100px !important;
+  min-height: 40px !important;
+  font-size: 12px !important;
+  line-height: 45px !important;
+  padding: 0px 20px !important;
+  border-radius: 5px !important;
 }
 
 .add-card {
-    padding: 10px 0px !important;
+  padding: 10px 0px !important;
 }
 
 .product-cart {
-position: sticky !important;
-bottom: 5px; /* Adjust the value according to your layout */
-position: -webkit-sticky;
-
+  position: sticky !important;
+  bottom: 5px; /* Adjust the value according to your layout */
+  position: -webkit-sticky;
 }
 
 .horizontal-line {
-    border-radius: 8px;
-    border-top: 1px solid #e2e8f0;
-    margin-top: 10px;
-    box-shadow: 0 0 10px rgba(15, 23, 42, .07);
+  border-radius: 8px;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(15, 23, 42, 0.07);
 }
 /* .product-add-card {
   min-height: 400px;
   height: calc(60vh - 34px);
 } */
 .total-added {
-    display: inline-flex;
-    width: 36px;
-    height: 36px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-right: 5px;
-    margin-left: 10px;
-    background: #078586;
-    color: white;
-    font-size: 18px;
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-left: 10px;
+  background: #078586;
+  color: white;
+  font-size: 18px;
 }
 
-.container-card-cart{
-    position: relative;
-    min-height:100%;
+.container-card-cart {
+  position: relative;
+  min-height: 100%;
 }
-.fa-shopping-cart{
-    font-size:30px;background: linear-gradient(to left , #078586, #025e5e,#078586);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.product-cart .row .add-card .product-add-card .allcards{
-    overflow-x: hidden !important;
-    overflow-y: scroll !important;
-   
+.fa-shopping-cart {
+  font-size: 30px;
+  background: linear-gradient(to left, #078586, #025e5e, #078586);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.product-add-card{
-    min-height: calc(60vh - 45px) !important;
+.product-cart .row .add-card .product-add-card .allcards {
+  overflow-x: hidden !important;
+  overflow-y: scroll !important;
 }
 
-.no-card{
-    max-width: 82%;
-    margin-top: 16px;
-    color: #94a3b8;
-    font-size: 13px;
-    font-weight: 400;
-  }
+.product-add-card {
+  min-height: calc(60vh - 45px) !important;
+}
 
-.card-info{
-    margin-top: 70px;
+.no-card {
+  max-width: 82%;
+  margin-top: 16px;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.card-info {
+  margin-top: 70px;
 }
 
 .account:hover {
-    background: #025e5e !important;
-    color: white !important;
+  background: #025e5e !important;
+  color: white !important;
 }
 
 /* Other styles for .account element */
 .account {
-    padding: 10px;
-    border: 1px solid #ccc;
-    display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
 }
-
-
-
- 
-
-  
-

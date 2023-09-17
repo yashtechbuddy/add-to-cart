@@ -35,7 +35,7 @@ if (isset($_POST['updateProduct'])) {
             SET category_id = $category_id ,
             product_name = '$name',
             product_description = '$description',
-            product_image = '$targetFilePath',
+            product_image = '$imageName',
             volume_id = $Volume,
             visibility_id = $Visibility
             WHERE id = $productId";

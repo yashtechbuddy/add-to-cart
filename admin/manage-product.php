@@ -72,7 +72,7 @@ include 'includes/side-bar.php';
 
 
                                             <td><?php echo $row['name'] ?></td>
-                                            <td><img src="./images/products/<?php echo $row['image'] ?>" alt="Product Category image" height="60" width="60">
+                                            <td><img src="./images/products/<?php echo $row['image'] ?>" alt="Product  image" height="60" width="60">
                                             </td>
 
                                             
