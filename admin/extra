@@ -1,0 +1,63 @@
+$sql = 'select * from tbl_dept';
+$result = mysqli_query($conn, $sql);
+$department = mysqli_fetch_assoc($result);
+
+foreach ($department as $row) {
+
+// echo "<opiton value='" . $row[' id'] . "'>" . $row['name'] . "</option>" ; echo $row['id']; <!-- <?php
+                                                                                                    $sql = 'SELECT * FROM tbl_role';
+                                                                                                    $result = mysqli_query($conn, $sql);
+                                                                                                    if ($result && mysqli_num_rows($result) > 0) {
+
+                                                                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                                                                            echo "<option id='" . $row['id'] . "' value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                                                                                                        }
+                                                                                                    } else {
+                                                                                                        echo 'No data found.';
+                                                                                                    }
+
+                                                                                                    ?> -->
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Handle click on main menu items
+            $('#sidebar_menu > li').click(function() {
+                // Remove active class from all main menu items
+                $('#sidebar_menu > li').removeClass('mm-active');
+
+                // Add active class to the clicked main menu item
+                $(this).addClass('mm-active');
+            });
+
+            // Handle click on sub menu items
+            $('.subMenu li').click(function() {
+                // Remove active class from all sub menu items
+                $('.subMenu li').removeClass('active');
+
+                // Add active class to the clicked sub menu item
+                $(this).addClass('active');
+
+                // Add active class to its parent main menu item
+                $(this).closest('li').addClass('active');
+            });
+        });
+    </script>
+
+    // function toggleStatus(id) {
+    // var id = id;
+    // $.ajax({
+    // url: 'data.php',
+    // method: "post",
+    // data: {
+    // emp_id: id
+    // },
+    // success: function(result) {
+    // if (result == '1') {
+    // console.log('active');
+    // } else {
+    // console.log('inactive');
+    // }
+    // }
+    // })
+    // }

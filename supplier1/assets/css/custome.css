@@ -1,0 +1,18 @@
+.fileupload_block {
+    border: 1px solid rgb(212 219 229) !important;
+    padding: 10px !important;
+    border-radius: 5px;
+}
+
+.serach_field_2 .search_inner input {
+  color: #000;
+  font-size: 13px;
+  height: 40px;
+  width: 100%;
+  border-radius: 5px;
+  padding-left: 10px !important;
+  border: 1px solid #144bf6;
+  padding-right: 15px;
+}
+
+

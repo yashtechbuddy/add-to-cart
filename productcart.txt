@@ -1,0 +1,82 @@
+<!-- products.php -->
+
+<!-- Display product listing -->
+<h2>Product Listing</h2>
+<?php
+// Assume $products is an array of product data fetched from the database
+foreach ($products as $product) {
+    echo "<div>";
+    echo "<h3>{$product['name']}</h3>";
+    echo "<p>Price: {$product['price']}</p>";
+    echo "<form method='post' action='cart.php'>";
+    echo "<input type='hidden' name='product_id' value='{$product['id']}' />";
+    echo "<input type='submit' name='add_to_cart' value='Add to Cart' />";
+    echo "</form>";
+    echo "</div>";
+}
+?>
+
+<?php
+// cart.php
+
+// Start the session
+session_start();
+
+// Check if the product ID is submitted
+if (isset($_POST['add_to_cart']) && isset($_POST['product_id'])) {
+    $product_id = $_POST['product_id'];
+    
+    // Fetch the product details from the database based on the product ID
+    // ...
+
+    // Create a cart item array with product details
+    $item = array(
+        'id' => $product_id,
+        'name' => $product['name'],
+        'price' => $product['price'],
+        'quantity' => 1
+    );
+
+    // Check if the cart session variable exists, if not, create an empty array
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
+    }
+
+    // Check if the product already exists in the cart, update the quantity
+    if (array_key_exists($product_id, $_SESSION['cart'])) {
+        $_SESSION['cart'][$product_id]['quantity']++;
+    } else {
+        // Add the product to the cart
+        $_SESSION['cart'][$product_id] = $item;
+    }
+
+    // Redirect back to the product listing page or display a success message
+    header('Location: products.php');
+    exit();
+}
+?>
+
+<?php
+// cart.php
+
+// Start the session
+session_start();
+
+// Display the cart items
+echo "<h2>Cart</h2>";
+
+// Check if the cart session variable exists
+if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $item) {
+        echo "<div>";
+        echo "<h3>{$item['name']}</h3>";
+        echo "<p>Price: {$item['price']}</p>";
+        echo "<p>Quantity: {$item['quantity']}</p>";
+        echo "</div>";
+    }
+} else {
+    echo "<p>Your cart is empty.</p>";
+}
+?>
+
+https://chat.openai.com/share/a9a193b2-e16a-4dd6-99eb-c32fecf89db5
