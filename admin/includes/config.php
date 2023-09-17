@@ -4,8 +4,8 @@ ini_set('display_errors', 0);
 ob_start();
 session_start();
     
-DEFINE('DB_USER', 'rndtd_trading_user');
-DEFINE('DB_PASSWORD', 'Qwaszx@123');
+DEFINE('DB_USER', 'root');
+DEFINE('DB_PASSWORD', '');
 DEFINE('DB_HOST', 'localhost'); //host name depends on server
 DEFINE('DB_NAME', 'rndtd_trading_db');
 
