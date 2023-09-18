@@ -7,7 +7,7 @@ session_start();
 DEFINE('DB_USER', 'root');
 DEFINE('DB_PASSWORD', '');
 DEFINE('DB_HOST', 'localhost'); //host name depends on server
-DEFINE('DB_NAME', 'rndtd_trading_db');
+DEFINE('DB_NAME', 'rndtd_trading_db1.6');
 
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 

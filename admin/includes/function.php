@@ -5,9 +5,9 @@ function deleteRecord($table, $condition)
     global $conn;
 
     $query = "DELETE FROM $table WHERE $condition";
-    echo $query;
+
     $result = mysqli_query($conn, $query);
- 
+
     if ($result) {
         echo '<script type="text/javascript">alert("Record is deleted") </script>';
     } else {
@@ -51,7 +51,7 @@ function generateID()
     $alphabets = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $specialCharacter = '!@#$%^&*()-_=+';
     $numbers = '0123456789';
-    
+
     $id = '';
     $id .= $alphabets[rand(0, strlen($alphabets) - 1)];
     $id .= $alphabets[rand(0, strlen($alphabets) - 1)];
@@ -59,7 +59,7 @@ function generateID()
     $id .= $alphabets[rand(0, strlen($alphabets) - 1)];
     $id .= $alphabets[rand(0, strlen($alphabets) - 1)];
     $id .= $specialCharacter[rand(0, strlen($specialCharacter) - 1)];
-    
+
     for ($i = 0; $i < 10; $i++) {
         $id .= $numbers[rand(0, strlen($numbers) - 1)];
     }
@@ -70,7 +70,7 @@ function generateID()
 function generateUniqueID()
 {
     global $conn;
-    
+
     do {
         $newID = generateID();
         $query = "SELECT id FROM tbl_inquiry WHERE autogenrated_id = '$newID'";

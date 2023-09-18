@@ -27,7 +27,7 @@ if (isset($_POST['addproduct'])) {
     $targetFilePath = $targetDirectory . $newFileName;
     move_uploaded_file($fileTmpPath, $targetFilePath);
     $query = "INSERT INTO tbl_product(category_id,product_name,product_description,product_image,volume_id,visibility_id) 
-        VALUES ($category_id,'$name','$description','$imageName',$Volume,$Visibility)";
+        VALUES ($category_id,'$name','$description','$newFileName',$Volume,$Visibility)";
 
     $result = mysqli_query($conn, $query);
 
@@ -50,7 +50,7 @@ $row = mysqli_fetch_assoc($result);
 ?>
 
 
-<?php 
+<?php
 include 'includes/side-bar.php';
 include 'includes/top-bar.php';
 ?>

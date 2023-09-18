@@ -32,8 +32,87 @@ if (isset($_SESSION['cart'])) {
             max-width: 20%;
             /* Set to 20% width */
             padding-right: 0px;
+
         }
     }
+</style>
+
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: fit-content;
+  padding: 10px;
+  gap: 16px 10px;
+}
+
+
+
+
+/* .grid-item {
+  padding: 0 3px;
+  text-align: center;
+} */
+@media (max-width: 767px){
+.grid-container{
+    grid-template-columns: 1fr 1fr;
+}
+} 
+.catSubCount {
+        position: absolute;
+        top: -10px;
+        left: 0;
+        display: flex;
+        width: 65px;
+        height: 24px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 8px;
+        border-radius: 14px;
+        background-color: #06963c;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .productCard {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        /* height: 108px; */
+    }
+
+    .sub-container {
+        padding: 20px;
+    }
+
+   .productsContent {
+    display: flex;
+    /* margin:  auto; */
+    gap: 25px;
+    }
+    .cartProductsOverlay {
+    min-width: 235px;
+    }
+    .cartProducts {
+    position: sticky;
+    top: 80px;
+    border: 1px solid var(--neutral-light4);
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 1px 2px rgba(16,24,40,.05);
+}
+
+.cartItems {
+    display: flex;
+    max-width: 230px;
+    height: calc(60vh - 35px);
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 6px;
+}
+
 </style>
 
 <body class="home theme-creote page-home-default-one">
@@ -59,9 +138,7 @@ if (isset($_SESSION['cart'])) {
             <?php include 'header.php'; ?>
             <!----header end----->
             <div class="page_header_default style_one ">
-                <div class="parallax_cover">
-                    <img src="assets/images/page-header-default.jpg" alt="bg_image" class="cover-parallax">
-                </div>
+
                 <div class="page_header_content">
                     <div class="auto-container">
                         <div class="row">
@@ -89,7 +166,7 @@ if (isset($_SESSION['cart'])) {
             <!--===============PAGE CONTENT==============-->
             <div id="content" class="site-content">
 
-                <div class="container-lg card shadow mt-5 mb-5 py-3">
+                <div class="container-lg card shadow mt-5 mb-5 sub-container">
                     <div class="row p-2">
                         <div class="col">
                             <h4 class="d-flex text-capitalize"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
@@ -99,61 +176,82 @@ if (isset($_SESSION['cart'])) {
                         </div>
                     </div>
 
-                    <div class="row container-card-cart">
-                        <div class="col-lg-9 col-md-6">
-                            <div class="row">
-                                <?php
+                    <div class="productsContent">
+                    <div class="grid-container">
+                             <?php
                                 $stmt2 = $db->query("SELECT tbl_product.* , tbl_product.id as pid, tbl_categories.category_name  AS category_name FROM tbl_product JOIN tbl_categories ON tbl_product.category_id = tbl_categories.id WHERE tbl_product.category_id = $category_id AND visibility_id = 1  ");
                                 $rows = $stmt2->fetchAll(PDO::FETCH_OBJ);
                                 foreach ($rows as $row) {
 
 
                                 ?>
-                                    <form action="add-to-cart.php" method="post" class="col-md-6 product">
+                                    <form action="add-to-cart.php" method="post" class="card shadow p-2 " >
 
-                                        <div class="card shadow p-2 ">
+                                      
+                                            <div class="catSubCount <?php if (!isset($_SESSION['cart'][$row->pid])) {
+                                                                        echo "d-none";
+                                                                    } ?> ">Added</div>
+                                            <div class="d-flex justify-content-center align-content-center" style="background-color:#f0fafa ;margin-bottom: 8px;">
 
-                                            <div class="d-flex justify-content-center align-content-center" style="background-color:#f0fafa ;">
-                                                <img src="admin/images/products/<?php echo $row->product_image; ?>" class="card-img-top p-2 img-fluid broder border-3 rounded-2 " style="height: ; width: 100px" alt="Image Alt Text">
+                                                <img src="admin/images/products/<?php echo $row->product_image; ?>" class="card-img-top p-2 img-fluid broder border-3 rounded-2 " style=" width: 100px" alt="Image Alt Text">
                                                 <input type="hidden" name="img" value="<?php echo $row->product_image; ?>">
                                                 <input type="hidden" name="volume" value="<?php echo $row->volume_id; ?>">
                                                 <input type="hidden" name="product_id" value="<?php $product_id =  $row->pid;
                                                                                                 echo $product_id; ?>">
                                                 <input type="hidden" name="category" value="<?php echo $row->category_id; ?>">
                                             </div>
-                                            <div class="card-body text-center  p-0 px-4">
-                                                <span class="card-text d-flex product-title justify-content-around text-capitalize" style="height:30px;font-size: 14px;"><?php echo $row->product_name; ?></span>
+                                           
+                                                <span class="card-text d-flex product-title justify-content-around text-capitalize" style="flex-grow: 1;
+                                                                padding: 10px 5px;
+                                                                color: #334155;
+                                                                font-size: 14px;
+                                                                font-weight: 500;
+                                                                line-height: 16px;
+                                                                text-align: center;">
+                                                                
+                                                                <?php 
+                                                                $text = $row->product_name; 
+                                                                $maxLength = 25;
+                                                                // if (strlen($text) > $maxLength) {
+                                                                //     $text = substr($text, 0, $maxLength - 3) . '...';
+                                                                // }
+
+                                                                echo $text;
+                                                                ?>
+                                                            </span>
                                                 <input type="hidden" name="product_name" value="<?php echo $row->product_name; ?>">
 
-                                            </div>
-                                            <!-- ... Your product listing code ... -->
-                                            <!-- <a href="#" class="btn text-decoration-none mt-4 text-white mb-2 product-cat"
+
+                                                <!-- ... Your product listing code ... -->
+                                                <!-- <a href="#" class="btn text-decoration-none mt-4 text-white mb-2 product-cat"
                                                 style="background-color:#078586;width:90%;"
                                                 onclick="addToCart(<?php $row->pid; ?>, '<?php echo $row->product_name; ?>')">Add
                                                 To Cart</a> -->
-                                            <!-- ... Rest of your product listing code ... -->
-                                            <?php if (isset($_SESSION['cart'][$row->pid])) { ?>
-                                                <input type="submit" name="remove-from-cart" class="btn text-decoration-none mt-4 text-white mb-2 product-cat-remove" style="background-color:transparent !important;height:30px;font-size: 14px;" value="Remove">
-                                            <?php  } else { ?>
-                                                <input type="submit" name="add-to-cart" class="btn text-decoration-none mt-4 text-white mb-2 product-cat" style="background-color:transparent !important; height:30px;font-size: 14px;" value="Add to Cart">
-                                            <?php   } ?>
-
+                                                <!-- ... Rest of your product listing code ... -->
+                                                <?php if (isset($_SESSION['cart'][$row->pid])) { ?>
+                                                    <input type="submit" name="remove-from-cart" class="btn text-decoration-none  text-white mb-2 product-cat-remove" style="background-color:transparent !important;height:30px; line-height: 2px !important; font-size: 13px !important;" value="Remove">
+                                                <?php  } else { ?>
+                                                    <input type="submit" name="add-to-cart" class="btn text-decoration-none text-white mb-2 product-cat" style="background-color:transparent !important; height:30px; line-height: 2px !important; font-size: 13px !important;" value="Add to Cart">
+                                                <?php   } ?>
+                                            
                                             <!-- ... add product in cart ... -->
 
-                                        </div>
+                                        
 
                                     </form>
+                                
                                 <?php
 
                                 } ?>
-                            </div>
+                    </div>
+                        
+                        
+                        
 
-                        </div>
-
-                        <div class="col-lg-3 product-cart col-md-6">
-                            <div class="row">
-                                <div class="col-12 col-lg-12 add-card py-2 px-0 ">
-                                    <div class="card shadow p-2 px-0 product-add-card d-flex justify-content-between flex-column">
+                        <div class="cartProductsOverlay ">
+                            <div class="cartProducts">
+                                
+                                    <div class="cartItems">
                                         <div class="col-12 title p-0">
                                             <span class="total-added"><?php if (isset($count) and $count > 0) {
                                                                             echo $count;
@@ -178,7 +276,7 @@ if (isset($_SESSION['cart'])) {
                                                     <div class="horizontal-line mt-0 m-3"></div>
                                                 <?php endforeach; ?>
                                             </div>
-                                            <a href="cart.php" class="qoutation btn text-decoration-none text-white mb-2 mt-1" style="background-color:#078586;width:90%;">Get Qoutation
+                                            <a href="cart.php" class="qoutation btn text-decoration-none text-white mb-2 mt-1" style="background-color:#078586;width:90%;">Get Quotation
                                                 &nbsp;&nbsp;></a>
                                         <?php } else { ?>
                                             <div class="flex-grow-1 card-info">
@@ -195,10 +293,10 @@ if (isset($_SESSION['cart'])) {
                                         <?php } ?>
 
                                     </div>
-                                </div>
+                                
                             </div>
                         </div>
-
+                    </div>
                     </div>
 
                 </div>
