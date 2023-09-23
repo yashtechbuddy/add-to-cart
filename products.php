@@ -209,7 +209,7 @@ if (isset($_SESSION['cart'])) {
 @media (max-width: 767px){
 .productsContent .cartProductsOverlay .cartProducts {
     z-index: 3;
-    bottom: 60px;
+    bottom: 0px;
     left: 0;
     width: 100%;
     padding-bottom: 20px;
@@ -399,7 +399,18 @@ if (isset($_SESSION['cart'])) {
 
                         <div class="cartProductsOverlay ">
                             <div class="cartProducts  <?php if ($count == 0) { echo "mobile-hide"; }?>" id="cartProducts">
-
+                            <!-- mob-view -->
+                                <div class="launchBtn">
+                                    <button class="btn cartBtn">
+                                        <?php echo $count ?> Product Added   
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="18" width="18" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="none" d="M0 0h24v24H0z"></path>
+                                            <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"></path>
+                                        </svg>                     
+                                    </button>
+                                    <button type="button" class="btn mobquotation "  style="background-color: #078586; font-size: 14px;">Ask Quotation </button>
+                              
+                                </div>
                                 <?php if (isset($count) and $count > 0) {  ?>
                                     <div class="cartItems" id="cartItems">
                                         <div class="title">
@@ -412,6 +423,15 @@ if (isset($_SESSION['cart'])) {
                                         </div>
 
                                         <div class="allcards">
+                                           
+                                            <div class="totalProductsAdded">
+                                            <button type="button" class="btn-base">
+                                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                                </svg>
+                                            </button>                                                                  
+                                            </div>
                                             <?php foreach ($_SESSION['cart'] as $product_id => $product_details) : ?>
 
 
@@ -635,6 +655,17 @@ if (isset($_SESSION['cart'])) {
     <!-- ajax -->
 <script>
         $(document).ready(function () {
+            $(".btn-base").on("click",  function () {
+                $(".cartItems").removeClass("show");
+                $(".launchBtn").removeClass("d-none")
+            });
+            
+            $(".cartBtn").on("click", function () {
+                
+                $(".cartItems").addClass("show");
+                $(".launchBtn").addClass("d-none");
+            });
+
             // Add click event to delete-product links
             // function(){}
             // $(".allcards").on("click", ".delete-product", function () {
@@ -745,6 +776,7 @@ if (isset($_SESSION['cart'])) {
                             
                             }
                             $(".total-added").text(responseData.cart_count);
+                            $(".cartBtn").text(responseData.cart_count+" Product Added")
                         // console.log(responseData.cart_count);
 
                         }else{
@@ -788,6 +820,7 @@ if (isset($_SESSION['cart'])) {
                             // Optionally, you can update the cart count on the page
                             // Assuming you have an element with id "cart-count"
                             $(".total-added").text(responseData.cart_count);
+                            $(".cartBtn").text(responseData.cart_count+" Product Added")
                             // console.log(responseData.cart_count);
                                                 }
                     },
@@ -961,6 +994,8 @@ function deleteProduct(productId, categoryId) {
     </script>
 
 <script>
+    // onclose click
+
     // Check the viewport width and add content if needed
     if (window.innerWidth >= 768 ) {
       var conditionalDiv = document.getElementById('cartProducts');

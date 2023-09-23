@@ -51,14 +51,33 @@ if(!isset($_SESSION['cart'][$product_id])){
 //     echo "Product ID: $productId<br>";
     
 // }
-$cartsproducts = '<div class="cartItems" id="cartItems">
+$cartsproducts = '
+<div class="launchBtn">
+<button class="btn cartBtn">
+    <?php echo $count ?> Product Added   
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="18" width="18" xmlns="http://www.w3.org/2000/svg">
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"></path>
+    </svg>                     
+</button>
+<button type="button" class="btn mobquotation "  style="background-color: #078586; font-size: 14px;">Ask Quotation </button>
+</div>
+<div class="cartItems" id="cartItems">
  <div class="title">
      <span class="total-added">';
 $cartsproducts .='</span>Product Added
  <div class="horizontal-line"></div>
  </div>
  
- <div class="allcards">';
+ <div class="allcards">
+ <div class="totalProductsAdded">
+ <button type="button" class="btn-base">
+     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+         <path fill="none" d="M0 0h24v24H0z"></path>
+         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+     </svg>
+ </button>                                                                  
+ </div>';
  foreach ($_SESSION['cart'] as $product_id => $product_details) {
     $cartsproducts .= '<div class="cart-product" >
         <div class="cart-product-image">
@@ -104,7 +123,18 @@ if (isset($_SESSION['cart'][$product_id])) {
 }
 
 
-$cartsproducts = '<div class="cartItems" id="cartItems">
+$cartsproducts = '
+<div class="launchBtn">
+<button class="btn cartBtn">
+    <?php echo $count ?> Product Added   
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="18" width="18" xmlns="http://www.w3.org/2000/svg">
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"></path>
+    </svg>                     
+</button>
+<button type="button" class="btn mobquotation "  style="background-color: #078586; font-size: 14px;">Ask Quotation </button>
+</div>
+<div class="cartItems" id="cartItems">
  <div class="title">
      <span class="total-added">';
 
@@ -114,7 +144,15 @@ $cartsproducts = '<div class="cartItems" id="cartItems">
      <div class="horizontal-line"></div>
  </div>
  
- <div class="allcards">';
+ <div class="allcards">
+ <div class="totalProductsAdded">
+ <button type="button" class="btn-base">
+     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+         <path fill="none" d="M0 0h24v24H0z"></path>
+         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+     </svg>
+ </button>                                                                  
+ </div>';
  foreach ($_SESSION['cart'] as $product_id => $product_details) {
      $cartsproducts .= '<div class="cart-product" >
          <div class="cart-product-image">
