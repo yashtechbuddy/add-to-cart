@@ -398,10 +398,10 @@ if (isset($_SESSION['cart'])) {
                         </div>
 
                         <div class="cartProductsOverlay ">
-                            <div class="cartProducts  <?php if ($count == 0) { echo "mobile-hide"; }?>">
+                            <div class="cartProducts  <?php if ($count == 0) { echo "mobile-hide"; }?>" id="cartProducts">
 
                                 <?php if (isset($count) and $count > 0) {  ?>
-                                    <div class="cartItems">
+                                    <div class="cartItems" id="cartItems">
                                         <div class="title">
                                             <span class="total-added"><?php if (isset($count) and $count > 0){
                                                                             echo $count;
@@ -962,7 +962,7 @@ function deleteProduct(productId, categoryId) {
 
 <script>
     // Check the viewport width and add content if needed
-    if (window.innerWidth > 768) {
+    if (window.innerWidth >= 768 ) {
       var conditionalDiv = document.getElementById('cartProducts');
      var childElements = conditionalDiv.children;
 

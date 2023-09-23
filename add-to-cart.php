@@ -51,7 +51,7 @@ if(!isset($_SESSION['cart'][$product_id])){
 //     echo "Product ID: $productId<br>";
     
 // }
-$cartsproducts = '<div class="cartItems">
+$cartsproducts = '<div class="cartItems" id="cartItems">
  <div class="title">
      <span class="total-added">';
 $cartsproducts .='</span>Product Added
@@ -60,7 +60,7 @@ $cartsproducts .='</span>Product Added
  
  <div class="allcards">';
  foreach ($_SESSION['cart'] as $product_id => $product_details) {
-    $cartsproducts .= '<div class="cart-product">
+    $cartsproducts .= '<div class="cart-product" >
         <div class="cart-product-image">
             <img src="admin/images/products/' . $product_details['image'] . '" alt="product-image" style="height:24px;width:24px">
         </div>
@@ -104,7 +104,7 @@ if (isset($_SESSION['cart'][$product_id])) {
 }
 
 
-$cartsproducts = '<div class="cartItems">
+$cartsproducts = '<div class="cartItems" id="cartItems">
  <div class="title">
      <span class="total-added">';
 
@@ -116,7 +116,7 @@ $cartsproducts = '<div class="cartItems">
  
  <div class="allcards">';
  foreach ($_SESSION['cart'] as $product_id => $product_details) {
-     $cartsproducts .= '<div class="cart-product">
+     $cartsproducts .= '<div class="cart-product" >
          <div class="cart-product-image">
              <img src="admin/images/products/' . $product_details['image'] . '" alt="product-image" style="height:24px;width:24px">
          </div>
