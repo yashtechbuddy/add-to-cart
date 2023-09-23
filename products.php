@@ -38,6 +38,24 @@ if (isset($_SESSION['cart'])) {
 </style>
 
 <style>
+
+@media (max-width: 767px){
+.homeCardWrapper {
+    padding: 20px 14px;
+}
+}
+.homeCardWrapper {
+    position: relative;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid #f1f5f9;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.crumbList .backBtn, .homeCardWrapper {
+    background: var(--white);
+    box-shadow: 0 1px 2px rgba(16,24,40,.05);
+}
     .grid-container {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -65,6 +83,12 @@ if (isset($_SESSION['cart'])) {
         .grid-container {
             grid-template-columns: 1fr 1fr;
         }
+    }
+
+@media (max-width: 767px){
+.ProductsDetail__titleBlock--tI6Qp h1 {
+    font-size: 18px;
+}
     }
 
     .catSubCount {
@@ -144,6 +168,113 @@ if (isset($_SESSION['cart'])) {
     font-size: 12px;
     font-weight: 400;
 }
+
+.allcards{
+    flex-grow: 1;
+  padding: 0 0 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.cart-product{
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background: #fff;
+  gap: 12px;
+}
+
+.cart-product-image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f1f5f9;
+  border-radius: 50px;
+  background: #f1f5f9;
+}
+.cart-product-name{
+    overflow: hidden;
+  flex-grow: 1;
+  color: #475569;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hr-line{
+    border-top: 1px solid #e2e8f0;
+  margin: 0 10px;
+}
+
+@media (max-width: 767px){
+.productsContent .cartProductsOverlay .cartProducts {
+    z-index: 3;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    padding-bottom: 20px;
+    border-color:#e2e8f0;
+    background: #fff;
+}
+}
+@media (max-width: 767px){
+.productsContent .cartProducts {
+    position: fixed;
+    z-index: 2;
+    top: auto;
+    bottom: 90px;
+    left: 4px;
+    width: calc(100% - 8px);
+}
+}
+
+@media (max-width: 767px){
+.productsContent .cartProductsOverlay .cartProducts .cartItems .title {
+    margin-bottom: 10px;
+}
+}
+@media (max-width: 767px){
+.ProductsDetail__title {
+    font-size: 18px !important;
+}
+}
+
+.main-container{
+    width: 100% !important;
+    max-width: 1220px !important;
+    padding: 0 20px !important;
+    margin: 0 auto !important;
+}
+.ProductsDetail__title  {
+    margin: 0 !important;
+    color: black !important;
+    font-size: 20px ;
+    font-weight: 600 !important;
+    line-height: 27px !important;   
+    font-family: Arial, sans-serif !important;
+    text-transform: capitalize;
+}
+
+
+@media (max-width: 767px){
+ .ProductsDetail__subHeading {
+    font-size: 12px;
+}
+}
+@media (max-width: 767px){
+.main-container {
+    padding: 0 12px !important;
+}
+}
+
+@media (max-width: 767px){
+    .mobile-hide,.cartItems.noData{
+ display: none;
+}
+}
+
+
+
 </style>
 
 <body class="home theme-creote page-home-default-one">
@@ -174,10 +305,7 @@ if (isset($_SESSION['cart'])) {
             
                        
            
-            <div id="content" class="site-content" style="width: 100%;
-                                                         max-width: 1220px;
-                                                         padding: 0 20px;
-                                                         margin: 0 auto;">
+            <div id="" class="main-container" >
                  <div class="row">
                             <div class="">
                                 <div class="">
@@ -189,28 +317,29 @@ if (isset($_SESSION['cart'])) {
                                 </div>
                             </div>
                         </div>
-                <div class="container-lg card shadow  mb-5 sub-container" >
+                <div class="container-lg card shadow  mb-5 sub-container homeCardWrapper " >
                     <div class="row ">
-                        <div class="col" style="margin-bottom:20px;padding:0px;">
-                            <h1 class="" style="font-size: 20px;line-height: 27px;  font-weight: 600; font-family: Arial, sans-serif;">
+                        <div class="col" style="margin-bottom:10px;padding:0px;">
+                            <h1 class="ProductsDetail__title">
                                 <?php echo $row->category_name ?> For Quotation
                             </h1>
-                            <span class="text-capitalize">(<?php echo $row->total; ?> product are available)</span>
+                            <span class="text-capitalize ProductsDetail__subHeading">(<?php echo $row->total; ?> product are available)</span>
                         </div>
                     </div>
 
                     <div class="productsContent">
                         <div class="grid-container">
                             <?php
+                            
                             $stmt2 = $db->query("SELECT tbl_product.* , tbl_product.id as pid, tbl_categories.category_name  AS category_name FROM tbl_product JOIN tbl_categories ON tbl_product.category_id = tbl_categories.id WHERE tbl_product.category_id = $category_id AND visibility_id = 1  ");
                             $rows = $stmt2->fetchAll(PDO::FETCH_OBJ);
                             foreach ($rows as $row) {
 
 
                             ?>
-                                <form action="add-to-cart.php" method="post" class="card shadow p-2 ">
+                                <div class="card shadow p-2 " id="product">
 
-
+                                  <input type="hidden" name="ajax_request" value="1">
                                     <div class="catSubCount <?php if (!isset($_SESSION['cart'][$row->pid])) {
                                                                 echo "d-none";
                                                             } ?> ">Added</div>
@@ -234,11 +363,7 @@ if (isset($_SESSION['cart'])) {
 
                                         <?php
                                         $text = $row->product_name;
-                                        $maxLength = 25;
-                                        // if (strlen($text) > $maxLength) {
-                                        //     $text = substr($text, 0, $maxLength - 3) . '...';
-                                        // }
-
+                                      
                                         echo $text;
                                         ?>
                                     </span>
@@ -252,7 +377,11 @@ if (isset($_SESSION['cart'])) {
                                                 To Cart</a> -->
                                     <!-- ... Rest of your product listing code ... -->
                                    
-                                        <input type="submit" name="<?php if (isset($_SESSION['cart'][$row->pid])) { echo "remove-from-cart";  } else { echo "add-to-cart"; }  ?>" class="btn text-decoration-none  text-white mb-2 <?php if (isset($_SESSION['cart'][$row->pid])) { echo "product-cat-remove";  } else { echo "product-cat"; }  ?>" style="background-color:transparent !important;height:30px; line-height: 2px !important; font-size: 13px !important;cursor: pointer;" value="<?php if (isset($_SESSION['cart'][$row->pid])) { echo "Remove";  } else { echo "Add to Cart"; }  ?>">
+                                        <input type="button" 
+                                        name="<?php if (isset($_SESSION['cart'][$row->pid])) { echo "remove-from-cart";  } else { echo "add-to-cart"; }  ?>" 
+                                        class="btn text-decoration-none  text-white mb-2 <?php if (isset($_SESSION['cart'][$row->pid])) { echo "product-cat-remove";  } else { echo "product-cat"; }  ?>" 
+                                        style="background-color:transparent !important;height:30px; line-height: 2px !important; font-size: 13px !important;cursor: pointer;" 
+                                        value="<?php if (isset($_SESSION['cart'][$row->pid])) { echo "Remove";  } else { echo "Add to Cart"; }  ?>">
                                     
                                         <!-- <input type="submit" name="add-to-cart" class="btn text-decoration-none text-white mb-2 product-cat" style="background-color:transparent !important; height:30px; line-height: 2px !important; font-size: 13px !important;" value="Add to Cart"> -->
                                     
@@ -261,43 +390,45 @@ if (isset($_SESSION['cart'])) {
 
 
 
-                                </form>
-
+                                </div>
+                                  
                             <?php
 
                             } ?>
                         </div>
 
-
-
-
                         <div class="cartProductsOverlay ">
-                            <div class="cartProducts">
+                            <div class="cartProducts  <?php if ($count == 0) { echo "mobile-hide"; }?>">
 
                                 <?php if (isset($count) and $count > 0) {  ?>
                                     <div class="cartItems">
                                         <div class="title">
-                                            <span class="total-added"><?php if (isset($count) and $count > 0) {
+                                            <span class="total-added"><?php if (isset($count) and $count > 0){
                                                                             echo $count;
                                                                         } else {
                                                                             echo "0";
-                                                                        }  ?></span>
-                                            Product Added
+                                                                        }  ?></span>Product Added
                                             <div class="horizontal-line"></div>
                                         </div>
 
-                                        <div class="allcards flex-grow-1" style="overflow-y: scroll;">
+                                        <div class="allcards">
                                             <?php foreach ($_SESSION['cart'] as $product_id => $product_details) : ?>
 
 
-                                                <div class="cards d-flex justify-content-between align-items-center" style="padding:5px 12px;
-                                                ">
-                                                    <img src="admin/images/products/<?php echo $product_details['image'] ?>" alt="product-image" style="height:40px;width:40px">
-                                                    <div class="d-inline title flex-grow-1" class=" color: #475569;font-size: 13px;text-overflow: ellipsis; white-space: nowrap; overflow:hidden;flex-grow: 1;">
-                                                        <?php echo $product_details['name'] ?></div>
-                                                    <span><a href="add-to-cart.php?id=<?php echo $product_id; ?>&category=<?php echo $category_id ?>" class="text-decoration-none" style="color:#b9bdba"><i class="fa fa-trash"></i></a></span>
+                                                <div class="cart-product">
+                                                    <div class="cart-product-image">
+                                                       <img src="admin/images/products/<?php echo $product_details['image'] ?>" alt="product-image" style="height:24px;width:24px">
+                                                    </div>
+                                                    <div class="cart-product-name">
+                                                        <?php echo $product_details['name'] ?>
+                                                    </div>
+                                                    <span>
+                                                        <a href="javascript:void(0);" onclick="deleteProduct(<?php echo $product_id; ?>, <?php echo $category_id; ?>);"class="delete-product" style="color:#94a3bb" data-product-id="<?php echo $product_id; ?>" data-category-id="<?php echo $category_id; ?>">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </span>
                                                 </div>
-                                                <div class="horizontal-line mt-0 m-3"></div>
+                                                <div class="hr-line"></div>
                                             <?php endforeach; ?>
                                         </div>
                                         <a href="cart.php" class="qoutation btn text-decoration-none text-white mb-2 mt-1" style="background-color:#078586;width:90%;">Get Quotation
@@ -307,12 +438,7 @@ if (isset($_SESSION['cart'])) {
                                 <?php } else { ?>
                                     <div class="cartItems noData">
                                         <div class="title">
-                                            <span class="total-added"><?php if (isset($count) and $count > 0) {
-                                                                            echo $count;
-                                                                        } else {
-                                                                            echo "0";
-                                                                        }  ?></span>
-                                            Product Added
+                                            <span class="total-added">0</span>Product Added
                                             <div class="horizontal-line"></div>
                                         </div>
                                         <div class="cartItemInfo">
@@ -505,64 +631,352 @@ if (isset($_SESSION['cart'])) {
     </div>
     <!---========================== javascript ==========================-->
     <?php include 'scripts.php' ?>
-    <script type="text/javascript">
-        // function addToCart(productId, productName) {
-        //     // AJAX request
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState === 4) {
-        //             if (xhr.status === 200) {
-        //                 // Cart update successful, update the cart count
-        //                 var cartCount = document.querySelector('.mini-cart-count');
-        //                 cartCount.innerHTML = xhr.responseText;
-        //             } else {
-        //                 // Handle error
-        //                 console.error('Error adding product to cart.');
-        //                 console.log(<?php print_r($_SESSION['cart']) ?>)
-        //             }
-        //         }
-        //     };
+    
+    <!-- ajax -->
+<script>
+        $(document).ready(function () {
+            // Add click event to delete-product links
+            // function(){}
+            // $(".allcards").on("click", ".delete-product", function () {
+            //     var productId = $(this).data("product-id");
+            //     var categoryId = $(this).data("category-id");
+            //     var deleteLink = $(this);
+            //         console.log(productId,categoryId);
+            //         console.log("Event binding for delete-product is active.");
 
-        //     xhr.open('POST', 'add-to-cart.php', true);
-        //     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        //     xhr.send('product_id=' + encodeURIComponent(productId) + '&product_name=' + encodeURIComponent(productName));
-        // }
+            //     // Send an AJAX request to delete the product
+            //     $.ajax({
+            //         type: "POST", // or "GET" depending on your backend implementation
+            //         url: "add-to-cart.php", // Change this to the URL that handles deletion
+            //         data: {
+            //             id: productId,
+            //             category: categoryId,
+            //             action: "delete"
+            //         },
+            //         success: function (response) {
+            //             // Handle success response here, e.g., remove the deleted product from the DOM
+            //             if (response === "success") {
+            //                 // Assuming you want to remove the entire cart-product div
+            //                 deleteLink.closest(".cart-product").remove();
+            //                 // Update the cart total or any other relevant UI updates
+            //             } else {
+            //                 alert("Failed to delete the product.");
+            //             }
+            //         },
+            //         error: function () {
+            //             alert("An error occurred while processing your request.");
+            //         }
+            //     });
+            // });
+            $(".product-cat, .product-cat-remove,.delete-product,.fa ,.fa-trash").on("click", function () {
+                
+                var clickedClass = $(this).attr("class");
+                console.log(clickedClass);
+
+                if (clickedClass.includes("product-cat") || clickedClass.includes("product-cat-remove") ) {
+                        // The "product-cat" class is selected
+                        console.log("Product Category Selected");
+                        var card = $(this).closest(".card");
+                        var productId = $(this).closest(".card").find('input[name="product_id"]').val();
+                        var category = $(this).closest(".card").find('input[name="category"]').val();
+                        var img = $(this).closest(".card").find('input[name="img"]').val();
+                        var volume = $(this).closest(".card").find('input[name="volume"]').val();
+                        var volume = $(this).closest(".card").find('input[name="volume"]').val();
+                        var product_name = $(this).closest(".card").find('input[name="product_name"]').val();
+                        var action = $(this).attr("name");
+
+                        // console.log("Product ID:", productId);
+                        // console.log("Product Name:", product_name);
+                        // console.log("Category:", category);
+                        // console.log("Image:", img);
+                        // console.log("volume:", volume);
+                        // console.log("Action:", action);
+
+                        $.ajax({
+                    type: "POST",
+                    url: "add-to-cart.php",
+                    data: {
+                        ajax_request: 1,
+                        product_id: productId,
+                        product_name: product_name,
+                        category: category,
+                        img : img,
+                        volume : volume,
+                        action: action
+                    },
+                    success: function (response) {
+                        // Handle the AJAX response here
+                        // console.log("AJAX Response:", response); // Log the response for debugging
+                        if (action === "add-to-cart") {
+                        // Product added to cart successfully
+                        // alert("Product added to cart!");
+                        var responseData = JSON.parse(response);
+                        // Change button text and show the "Added" label
+                        card.find('.btn').val("Remove");
+                        card.find('.catSubCount').removeClass("d-none");
+                        // For example, you can display a success message
+                        card.find('.btn').attr("name","remove-from-cart")
+                        card.find('.btn').addClass("product-cat-remove");  
+                        card.find('.btn').removeClass("product-cat");      
+                        // Optionally, you can update the cart count on the page
+                        // Assuming you have an element with id "cart-count"
+                        $(".total-added").text(responseData.cart_count);
+                        // if (responseData.cart_count === 0) {
+                        //         $(".cartProducts").html('<div class="cartItems noData">' +
+                        //             '<div class="title">' +
+                        //             '<span class="total-added">0</span>' +
+                        //             'Product Added' +
+                        //             '<div class="horizontal-line"></div>' +
+                        //             '</div>' +
+                        //             '<div class="cartItemInfo">' +
+                        //             '<i class="fa fa-cart-plus" style="font-size: 30px; color:#e2e8f0;"></i>' +
+                        //             '<div class="text">' +
+                        //             'No Products added in the cart.' +
+                        //             '<br/>' +
+                        //             '<span>Add products to proceed</span>' +
+                        //             '</div>' +
+                        //             '</div>' +
+                        //             '</div>');
+                        //     }
+                            
+                            if (responseData.cart_count > 0) {
+                                $(".cartProducts").html(responseData.cartsproducts);
+                                $(".cartProducts").removeClass("mobile-hide");
+                            
+                            }
+                            $(".total-added").text(responseData.cart_count);
+                        // console.log(responseData.cart_count);
+
+                        }else{
+                            // alert("Product remove from  cart!");
+                            var responseData = JSON.parse(response);    
+                            // Change button text and show the "Added" label
+                            card.find('.btn').val("Add to Cart");
+                            card.find('.btn').removeClass("product-cat-remove");
+                            card.find('.btn').addClass("product-cat");
+                            card.find('.catSubCount').addClass("d-none");
+
+                            card.find('.catSubCount').addClass("d-none");
+                            // For example, you can display a success message
+                            card.find('.btn').attr("name","add-to-cart");
+                            if (responseData.cart_count === 0) {
+                                $(".cartProducts").removeClass("mobile-hide");
+                                $(".cartProducts").addClass("mobile-hide");
+                                $(".cartProducts").html('<div class="cartItems noData">' +
+                                    '<div class="title">' +
+                                    '<span class="total-added">0</span>' +
+                                    'Product Added' +
+                                    '<div class="horizontal-line"></div>' +
+                                    '</div>' +
+                                    '<div class="cartItemInfo">' +
+                                    '<i class="fa fa-cart-plus" style="font-size: 30px; color:#e2e8f0;"></i>' +
+                                    '<div class="text">' +
+                                    'No Products added in the cart.' +
+                                    '<br/>' +
+                                    '<span>Add products to proceed</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>');
+                            }
+                            
+                            if (responseData.cart_count > 0) {
+                                $(".cartProducts").html(responseData.cartsproducts);
+                                $(".cartProducts").removeClass("mobile-hide");
+                                
+
+                            }
+                            // Optionally, you can update the cart count on the page
+                            // Assuming you have an element with id "cart-count"
+                            $(".total-added").text(responseData.cart_count);
+                            // console.log(responseData.cart_count);
+                                                }
+                    },
+                    error: function (error) {
+                        // Handle any errors here
+                        console.error("AJAX Error:", error);
+                    }
+                        });
+                    } 
+                    // else if (clickedClass.includes("delete-product")) {
+                        // The "product-cat-remove" class is selected
+                        
+                        // console.log("Product Category Remove Selected");
+                        // var productId = $(this).data("product-id");
+                        // var categoryId = $(this).data("category-id");
+                        // var deleteLink = $(this);
+                        //     console.log(productId,categoryId);
+                        //     console.log("Event binding for delete-product is active.");
+
+                        // Send an AJAX request to delete the product
+                        // $.ajax({
+                        //         type: "POST", // or "GET" depending on your backend implementation
+                        //         url: "add-to-cart.php", // Change this to the URL that handles deletion
+                        //         data: {
+                        //             id: productId,
+                        //             category: categoryId,
+                        //             action: "delete"
+                        //         },
+                        //         success: function (response) {
+                        //             var responseDatas = JSON.parse(response);
+                        //             // Handle success response here, e.g., remove the deleted product from the DOM
+                        //             if (action == "delete") {
+
+                        //                 var responseDatas = JSON.parse(response);  
+                        //                 // Assuming you want to remove the entire cart-product div
+                        //                 deleteLink.closest(".cart-product").remove();
+                        //                 product_id = deleteLink.data("product-id");
+                        //                 var closestCard = $('input[name="product_id"][value="' + productId + '"]').closest('.card');
+                        //                 closestCard.find('.btn').val("Add to Cart");
+                        //                 console.log(productId);
+                        //                 closestCard.find('.btn').removeClass("product-cat-remove");
+                        //                 closestCard.find('.btn').addClass("product-cat");
+                        //                 closestCard.find('.catSubCount').addClass("d-none");
+
+                        //                 closestCard.find('.catSubCount').addClass("d-none");
+                        //                 // For example, you can display a success message
+                        //                 closestCard.find('.btn').attr("name","add-to-cart");
+                        //     if (responseDatas.cart_count === 0) {
+                        //         $(".cartProducts").removeClass("mobile-hide");
+                        //         $(".cartProducts").addClass("mobile-hide");
+                        //         $(".cartProducts").html('<div class="cartItems noData">' +
+                        //             '<div class="title">' +
+                        //             '<span class="total-added">0</span>' +
+                        //             'Product Added' +
+                        //             '<div class="horizontal-line"></div>' +
+                        //             '</div>' +
+                        //             '<div class="cartItemInfo">' +
+                        //             '<i class="fa fa-cart-plus" style="font-size: 30px; color:#e2e8f0;"></i>' +
+                        //             '<div class="text">' +
+                        //             'No Products added in the cart.' +
+                        //             '<br/>' +
+                        //             '<span>Add products to proceed</span>' +
+                        //             '</div>' +
+                        //             '</div>' +
+                        //             '</div>');
+                        //     }
+                            
+                        //     if (responseDatas.cart_count > 0) {
+                        //         $(".cartProducts").html(responseDatas.cartsproducts);
+                        //         $(".cartProducts").removeClass("mobile-hide");
+                                
+
+                        //     }
+                        //     // Optionally, you can update the cart count on the page
+                        //     // Assuming you have an element with id "cart-count"
+                        //     $(".total-added").text(responseData.cart_count);
+                        //     // console.log(responseData.cart_count);
+                        //                 // Update the cart total or any other relevant UI updates
+                        //             } else {
+                        //                 alert("Failed to delete the product.");
+                        //             }
+                        //         },
+                        //         error: function () {
+                        //             alert("An error occurred while processing your request.");
+                        //         }
+                        // });
+                    // }
+                
+              
+            });
+        });
+function deleteProduct(productId, categoryId) {
+    // Send an AJAX request to delete the product
+    
+    console.log("hello world");
+    // var anchorTagLink = $(a["data-product-id="'+ productId+']["data-category-id"='+categoryId+']);
+    var anchorTagLink = $('a[data-product-id="' + productId + '"][data-category-id="' + categoryId + '"]');
+
+    console.log(anchorTagLink);
+    $('input[name="product_id"][value="' + productId + '"]').closest('.card');
+        //Send an AJAX request to delete the product
+        action = "delete";
+        $.ajax({
+                                type: "POST", // or "GET" depending on your backend implementation
+                                url: "add-to-cart.php", // Change this to the URL that handles deletion
+                                data: {
+                                    id: productId,
+                                    category: categoryId,
+                                    action: action
+                                },
+                                success: function (response) {
+                                    var responseDatas = JSON.parse(response);
+                                    // Handle success response here, e.g., remove the deleted product from the DOM
+                                    if (action == "delete") {
+
+                                        var responseDatas = JSON.parse(response);  
+                                        console.log(responseDatas)
+                                        // Assuming you want to remove the entire cart-product div
+                                        anchorTagLink.closest(".cart-product").remove();
+                                        product_id = anchorTagLink.data("product-id");
+                                        var closestCard = $('input[name="product_id"][value="' + productId + '"]').closest('.card');
+                                        closestCard.find('.btn').val("Add to Cart");
+                                        console.log(productId);
+                                        closestCard.find('.btn').removeClass("product-cat-remove");
+                                        closestCard.find('.btn').addClass("product-cat");
+                                        closestCard.find('.catSubCount').addClass("d-none");
+
+                                        closestCard.find('.catSubCount').addClass("d-none");
+                                        // For example, you can display a success message
+                                        closestCard.find('.btn').attr("name","add-to-cart");
+                            if (responseDatas.cart_count === 0) {
+                                $(".cartProducts").removeClass("mobile-hide");
+                                $(".cartProducts").addClass("mobile-hide");
+                                $(".cartProducts").html('<div class="cartItems noData">' +
+                                    '<div class="title">' +
+                                    '<span class="total-added">0</span>' +
+                                    'Product Added' +
+                                    '<div class="horizontal-line"></div>' +
+                                    '</div>' +
+                                    '<div class="cartItemInfo">' +
+                                    '<i class="fa fa-cart-plus" style="font-size: 30px; color:#e2e8f0;"></i>' +
+                                    '<div class="text">' +
+                                    'No Products added in the cart.' +
+                                    '<br/>' +
+                                    '<span>Add products to proceed</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>');
+                            }
+                            
+                            if (responseDatas.cart_count > 0) {
+                                $(".cartProducts").html(responseDatas.cartsproducts);
+                                $(".cartProducts").removeClass("mobile-hide");
+                                
+
+                            }
+                            // Optionally, you can update the cart count on the page
+                            // Assuming you have an element with id "cart-count"
+                            $(".total-added").text(responseDatas.cart_count);
+                            // console.log(responseData.cart_count);
+                                        // Update the cart total or any other relevant UI updates
+                                    } else {
+                                        alert("Failed to delete the product.");
+                                    }
+                                },
+                                error: function () {
+                                    alert("An error occurred while processing your request.");
+                                }
+        });
+}
     </script>
 
-    <!---========================== javascript ==========================-->
-    <script>
-    // jQuery AJAX to add product to cart
-    $(".add-to-cart-btn").click(function() {
-        var productId = $(this).data("product-id");
-        $.ajax({
-            type: "POST",
-            url: "add-to-cart.php",
-            data: {
-                product_id: productId,
-                action: "add-to-cart"
-            },
-            success: function(data) {
-                // Handle the response (e.g., update cart overlay)
-            }
-        });
-    });
+<script>
+    // Check the viewport width and add content if needed
+    if (window.innerWidth > 768) {
+      var conditionalDiv = document.getElementById('cartProducts');
+     var childElements = conditionalDiv.children;
 
-    // jQuery AJAX to remove product from cart
-    $(".remove-from-cart-btn").click(function() {
-        var productId = $(this).data("product-id");
-        $.ajax({
-            type: "POST",
-            url: "add-to-cart.php",
-            data: {
-                product_id: productId,
-                action: "remove-from-cart"
-            },
-            success: function(data) {
-                // Handle the response (e.g., update cart overlay)
-            }
-        });
-    });
-</script>
+        // Hide all child elements
+        for (var i = 0; i < childElements.length; i++) {
+            childElements[i].style.display = 'none';
+        }
+      var paragraph = document.createElement('p')
+      paragraph.classList.add('actionBtns');
+      paragraph.textContent = 'This content is added dynamically for screens wider than 768px.';
+      conditionalDiv.appendChild(paragraph);
+    }
+  </script>
+
 </body>
 
 
